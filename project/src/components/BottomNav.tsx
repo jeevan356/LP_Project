@@ -23,7 +23,7 @@ const BottomNav: React.FC = () => {
             <Link
               key={item.name}
               to={item.href}
-              className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors ${
+              className={`flex flex-col items-center space-y-1 p-2 rounded-lg transition-colors relative ${
                 isActive
                   ? 'text-blue-600 bg-blue-50'
                   : 'text-gray-600 hover:text-blue-600'
