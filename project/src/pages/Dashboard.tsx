@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import { 
   User, 
   MapPin, 
+  Clock, 
   Package, 
+  CreditCard, 
+  Bell, 
   Settings, 
   LogOut,
   Edit3,
   Plus,
   Truck,
+  CheckCircle,
   Star,
   Calendar
 } from 'lucide-react';
 
 const Dashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState('orders');
-  const [, setShowAddAddress] = useState(false);
+  const [showAddAddress, setShowAddAddress] = useState(false);
 
   const user = {
     name: 'Priya Sharma',

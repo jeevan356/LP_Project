@@ -1,42 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Player } from '@lottiefiles/react-lottie-player';
+import React, { useEffect, useState } from 'react';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 interface PreloaderProps {
   onComplete?: () => void;
   loadingText?: string;
-  animationData?: object;
+  animationUrl?: string;
 }
 
-const Preloader: React.FC<PreloaderProps> = ({ 
-  onComplete, 
+const Preloader: React.FC<PreloaderProps> = ({
+  onComplete,
   loadingText = "Loading your laundry solution...",
-  animationData 
+  animationUrl = "https://lottie.host/cbde48a6-05df-4e8f-809e-db5a14488f9f/r2puV7voou.lottie"
 }) => {
-  const playerRef = useRef<Player>(null);
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Animation progress updater
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(progressInterval);
-          return 100;
-        }
-        return prev + 2;
-      });
+    const progInterval = setInterval(() => {
+      setProgress(prev => prev >= 100 ? (clearInterval(progInterval), 100) : prev + 2);
     }, 50);
 
-    // Auto-hide timer
-    const timer = setTimeout(() => {
+    const hideTimer = setTimeout(() => {
       setIsVisible(false);
       onComplete?.();
     }, 3000);
 
     return () => {
-      clearInterval(progressInterval);
-      clearTimeout(timer);
+      clearInterval(progInterval);
+      clearTimeout(hideTimer);
     };
   }, [onComplete]);
 
@@ -44,37 +35,16 @@ const Preloader: React.FC<PreloaderProps> = ({
 
   return (
     <div className="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center transition-opacity duration-500">
-      {/* Lottie Animation Player */}
-      <Player
-        ref={playerRef}
-        autoplay
-        loop={false}
-        src={animationData || "/laundry-preloader.json"}
-        style={{ 
-          height: '300px', 
-          width: '300px',
-          display: 'block' // Ensure proper rendering
-        }}
-        onEvent={event => {
-          if (event === 'complete') {
-            setIsVisible(false);
-            onComplete?.();
-          }
-        }}
-      />
-      
-      {/* Text Content */}
+      <div className="w-[300px] h-[300px]">
+        <DotLottieReact src={animationUrl} autoplay loop />
+      </div>
       <div className="text-center mt-4">
         <h2 className="text-xl font-semibold text-gray-800">LaundryPro</h2>
         <p className="text-gray-600 mt-2">{loadingText}</p>
-        
-        {/* Progress Bar */}
         <div className="w-48 h-1 bg-gray-200 rounded-full mt-4 overflow-hidden">
-          <div 
+          <div
             className="h-full bg-blue-500 rounded-full transition-all duration-300"
-            style={{
-              width: `${progress}%`
-            }}
+            style={{ width: `${progress}%` }}
           />
         </div>
       </div>

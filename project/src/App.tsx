@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import Header from './components/Header';
@@ -16,16 +16,12 @@ import WhatsAppButton from './components/WhatsAppButton';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+  };
 
   if (isLoading) {
-    return <Preloader />;
+    return <Preloader onComplete={handlePreloaderComplete} />;
   }
 
   return (
