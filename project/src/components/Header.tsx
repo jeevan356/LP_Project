@@ -52,11 +52,11 @@ const Header: React.FC = () => {
               </span>
             </Link>
             <Link
-              to="/login"
+              to="/dashboard"
               className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               <User className="w-4 h-4" />
-              <span>Login</span>
+              <span>Profile</span>
             </Link>
           </div>
 
@@ -90,20 +90,12 @@ const Header: React.FC = () => {
             ))}
             <div className="pt-2 border-t border-gray-100">
               <Link
-                to="/cart"
-                className="flex items-center space-x-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <ShoppingCart className="w-5 h-5" />
-                <span>Cart (2)</span>
-              </Link>
-              <Link
-                to="/login"
+                to="/dashboard"
                 className="flex items-center space-x-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <User className="w-5 h-5" />
-                <span>Login</span>
+                <span>Profile</span>
               </Link>
             </div>
           </div>
